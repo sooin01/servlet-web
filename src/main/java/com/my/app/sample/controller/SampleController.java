@@ -15,6 +15,7 @@ public class SampleController {
 	}
 	
 	public Object fileupload(MultipartRequest multipartRequest) {
+		System.out.println("name => " + multipartRequest.getParameter("name"));
 		return new Object();
 	}
 	

@@ -8,7 +8,8 @@
 	$(document).ready(function() {
 		$("#frm1").submit(function() {
 			$(this).ajaxSubmit({
-				type: "json",
+				type: "POST",
+				dataType: "json",
 				success: function(data) {
 					console.log(data);
 				}

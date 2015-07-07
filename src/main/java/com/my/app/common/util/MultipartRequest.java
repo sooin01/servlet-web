@@ -23,9 +23,9 @@ public class MultipartRequest {
 	private Map<String, FileVo> fileMap = new HashMap<String, FileVo>();
 	
 	public MultipartRequest(HttpServletRequest request) {
-		boolean multipartContent = ServletFileUpload.isMultipartContent(request);
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 		
-		if (multipartContent) {
+		if (isMultipart) {
 			parse(request);
 		}
 	}
@@ -37,6 +37,7 @@ public class MultipartRequest {
 		try {
 			List<FileItem> fileItemList = fileUpload.parseRequest(request);
 			
+			// name이 같은 경우 처리 보완해야 함. parameter, file value를 배열로...
 			for (FileItem fileItem : fileItemList) {
 				if (fileItem.isFormField()) {
 					parameterMap.put(fileItem.getFieldName(), CommonUtil.getParameter(fileItem.getInputStream()));
