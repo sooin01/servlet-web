@@ -12,6 +12,9 @@ public class CommonServiceProxy implements InvocationHandler {
 		this.obj = obj;
 	}
 
+	/**
+	 * Proxy 인스턴스 생성
+	 */
 	public static Object newInstance(Class<?> clazz) {
 		try {
 			return Proxy.newProxyInstance(clazz.getClassLoader(),
@@ -23,6 +26,9 @@ public class CommonServiceProxy implements InvocationHandler {
 		return null;
 	}
 	
+	/**
+	 * 실제 인스턴스의 메소드가 호출될 때 수행
+	 */
 	public Object invoke(Object proxy, Method method, Object[] args)
 			throws Throwable {
 		Object result = null;
