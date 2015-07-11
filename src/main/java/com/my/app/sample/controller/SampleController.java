@@ -1,16 +1,15 @@
 package com.my.app.sample.controller;
 
+import com.my.app.common.service.ServiceProxy;
 import com.my.app.common.util.MultipartRequest;
+import com.my.app.sample.service.impl.SampleService;
 
 public class SampleController {
-
-	private static SampleController sampleController = new SampleController();
 	
-	public static SampleController getInstance() {
-		return sampleController;
-	}
+	private SampleService service = ServiceProxy.newInstance(SampleService.class);
 	
 	public String index() {
+		service.getSampleList("test");
 		return "sample/index";
 	}
 	

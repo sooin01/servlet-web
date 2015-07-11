@@ -6,18 +6,17 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import com.my.app.sample.service.impl.SampleServiceImpl;
-
-public class CommonCglibServiceProxy {
+public class ServiceProxy {
 	
-	public Object newInstance(Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(Class<T> clazz) {
 		Enhancer enhancer = new Enhancer();
 		enhancer.setSuperclass(clazz);
 		enhancer.setCallback(new ServiceCallback());
-		return enhancer.create();
+		return (T) enhancer.create();
 	}
 	
-	class ServiceCallback implements MethodInterceptor {
+	static class ServiceCallback implements MethodInterceptor {
 		public Object intercept(Object paramObject, Method paramMethod,
 				Object[] paramArrayOfObject, MethodProxy paramMethodProxy)
 				throws Throwable {
@@ -30,14 +29,6 @@ public class CommonCglibServiceProxy {
 			
 			return result;
 		}
-		
-		
-		
-	}
-
-	public static void main(String[] args) {
-		SampleServiceImpl service = (SampleServiceImpl) new CommonCglibServiceProxy().newInstance(SampleServiceImpl.class);
-		service.getSampleList("test");
 	}
 	
 }

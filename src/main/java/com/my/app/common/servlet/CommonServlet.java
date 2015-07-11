@@ -15,13 +15,14 @@ public class CommonServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8126510494883231847L;
 	
+	private static SampleController sampleController = new SampleController();
+	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String requestURI = request.getRequestURI();
 		
 		if (requestURI.startsWith("/sample")) {
-			SampleController sampleController = SampleController.getInstance();
 			
 			if (requestURI.contains("/index")) {
 				String result = sampleController.index();
