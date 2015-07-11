@@ -6,7 +6,7 @@ import com.my.app.sample.service.impl.SampleService;
 
 public class SampleController {
 	
-	private SampleService service = ServiceProxy.newInstance(SampleService.class);
+	private SampleService service = new ServiceProxy(SampleService.class).newInstance();
 	
 	public String index() {
 		service.getSampleList("test");
