@@ -15,15 +15,20 @@ public class CommonServiceProxy implements InvocationHandler {
 	/**
 	 * Proxy 인스턴스 생성
 	 */
-	public static Object newInstance(Class<?> clazz) {
+	@SuppressWarnings("unchecked")
+	public static <T> T newInstance(Class<T> clazz) {
+		T t = null;
+		
 		try {
-			return Proxy.newProxyInstance(clazz.getClassLoader(),
+			Object obj = Proxy.newProxyInstance(clazz.getClassLoader(),
 					clazz.getInterfaces(),
 					new CommonServiceProxy(clazz.newInstance()));
+			t = (T) clazz.getInterfaces()[0].cast(obj);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	
-		return null;
+		
+		return t;
 	}
 	
 	/**
