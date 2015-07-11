@@ -1,7 +1,6 @@
 package com.my.app.sample.controller;
 
 import com.my.app.common.util.MultipartRequest;
-import com.my.app.sample.service.impl.SampleServiceImpl;
 
 public class SampleController {
 
@@ -12,7 +11,6 @@ public class SampleController {
 	}
 	
 	public String index() {
-		SampleServiceImpl.getInstance().getSampleList("test");
 		return "sample/index";
 	}
 	
