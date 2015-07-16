@@ -3,6 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
+	<listener>
+		<listener-class>com.my.app.common.listener.CommonServletContextListener</listener-class>
+	</listener>
+
 	<servlet>
 		<servlet-name>commonServlet</servlet-name>
 		<servlet-class>com.my.app.common.servlet.CommonServlet</servlet-class>

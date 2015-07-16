@@ -23,6 +23,10 @@
 <body>
 
 <div>
+${domain}
+</div>
+
+<div>
 	<form id="frm1" action="/sample/fileupload" method="post" enctype="multipart/form-data">
 		<input type="text" name="name" value="파일업로드입니다." /><br />
 		<input type="file" name="file" /><br />
