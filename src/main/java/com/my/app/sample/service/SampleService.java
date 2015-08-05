@@ -1,4 +1,4 @@
-package com.my.app.sample.service.impl;
+package com.my.app.sample.service;
 
 public class SampleService {
 	

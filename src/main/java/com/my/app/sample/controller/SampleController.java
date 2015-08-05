@@ -2,7 +2,7 @@ package com.my.app.sample.controller;
 
 import com.my.app.common.service.ServiceProxy;
 import com.my.app.common.util.MultipartRequest;
-import com.my.app.sample.service.impl.SampleService;
+import com.my.app.sample.service.SampleService;
 
 public class SampleController {
 	
