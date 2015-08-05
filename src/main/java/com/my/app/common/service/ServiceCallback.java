@@ -7,15 +7,12 @@ import net.sf.cglib.proxy.MethodProxy;
 
 public class ServiceCallback implements MethodInterceptor {
 	
+	@Override
 	public Object intercept(Object paramObject, Method paramMethod,
 			Object[] paramArrayOfObject, MethodProxy paramMethodProxy)
 			throws Throwable {
 		
-		System.out.println(1);
-		
 		Object result = paramMethodProxy.invokeSuper(paramObject, paramArrayOfObject);
-		
-		System.out.println(2);
 		
 		return result;
 	}
