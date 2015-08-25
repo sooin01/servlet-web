@@ -6,7 +6,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#frm1").submit(function() {
+		$("#form1").submit(function() {
 			$(this).ajaxSubmit({
 				type: "POST",
 				dataType: "json",
@@ -14,7 +14,34 @@
 					console.log(data);
 				}
 			});
-			
+			return false;
+		});
+		
+		$("#form2").submit(function() {
+			$(this).ajaxSubmit({
+				url: "/sample/view",
+				type: "POST",
+				data: $("#form2").serialize(),
+				dataType: "html",
+				success: function(data) {
+					console.log(data);
+					$("#result2").html(data);
+				}
+			});
+			return false;
+		});
+		
+		$("#form3").submit(function() {
+			$(this).ajaxSubmit({
+				url: "/sample/viewAjax",
+				type: "POST",
+				data: $("#form2").serialize(),
+				dataType: "html",
+				success: function(data) {
+					console.log(data);
+					$("#result3").html(data);
+				}
+			});
 			return false;
 		});
 	});
@@ -27,13 +54,29 @@ ${domain}
 </div>
 
 <div>
-	<form id="frm1" action="/sample/fileupload" method="post" enctype="multipart/form-data">
+	<form id="form1" action="/sample/fileupload" method="post" enctype="multipart/form-data">
 		<input type="text" name="name" value="파일업로드입니다." /><br />
 		<input type="file" name="file" /><br />
 		<input type="file" name="file" />
 		<input type="submit" value="업로드" />
 	</form>
 </div>
+
+<div>
+	<form id="form2" action="/sample/view" method="post">
+		<input type="text" name="text" value="한글입니다." />
+		<input type="submit" value="전송" />
+	</form>
+</div>
+<div id="result2"></div>
+
+<div>
+	<form id="form3" action="/sample/viewAjax" method="post">
+		<input type="text" name="text" value="한글입니다." />
+		<input type="submit" value="전송" />
+	</form>
+</div>
+<div id="result3"></div>
 
 </body>
 </html>

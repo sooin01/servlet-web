@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/my/app/common/servlet/CommonServlet.java=EUC-KR
+encoding//src/main/webapp/WEB-INF/views/sample/index.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/sample/view.jsp=UTF-8

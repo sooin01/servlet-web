@@ -1,5 +1,10 @@
 package com.my.app.sample.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.my.app.common.service.ServiceProxy;
 import com.my.app.common.util.MultipartRequest;
 import com.my.app.sample.service.SampleService;
@@ -16,6 +21,21 @@ public class SampleController {
 	public Object fileupload(MultipartRequest multipartRequest) {
 		System.out.println("name => " + multipartRequest.getParameter("name"));
 		return new Object();
+	}
+	
+	public String view(HttpServletRequest request) {
+		String text = request.getParameter("text");
+		System.out.println("view => " + text);
+		request.setAttribute("text", text);
+		return "sample/view";
+	}
+	
+	public Map<String, String> viewAjax(HttpServletRequest request) {
+		String text = request.getParameter("text");
+		System.out.println("view => " + text);
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("text", text);
+		return map;
 	}
 	
 }
