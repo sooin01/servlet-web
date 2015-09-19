@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.my.app.common.listener.LoginSessionListener;
 import com.my.app.common.service.ServiceProxy;
 import com.my.app.common.util.MultipartRequest;
 import com.my.app.sample.service.SampleService;
@@ -13,7 +14,9 @@ public class SampleController {
 	
 	private SampleService service = new ServiceProxy(SampleService.class).newInstance();
 	
-	public String index() {
+	public String index(HttpServletRequest request) {
+		request.getSession().setAttribute("user", LoginSessionListener.getInstance());
+		request.getSession().removeAttribute("user");
 		service.getSampleList("test");
 		return "sample/index";
 	}

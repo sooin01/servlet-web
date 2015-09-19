@@ -31,7 +31,7 @@ public class CommonServlet extends HttpServlet {
 		
 		if (requestURI.startsWith("/sample")) {
 			if (requestURI.endsWith("/index")) {
-				String result = sampleController.index();
+				String result = sampleController.index(request);
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/fileupload")) {
 				MultipartRequest multipartRequest = new MultipartRequest(request);
