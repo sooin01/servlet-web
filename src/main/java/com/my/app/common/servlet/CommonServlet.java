@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.common.net.HttpHeaders;
 import com.google.gson.Gson;
 import com.my.app.common.util.MultipartRequest;
 import com.my.app.common.util.ResolveView;
@@ -38,6 +39,7 @@ public class CommonServlet extends HttpServlet {
 				Object result = sampleController.fileupload(multipartRequest);
 				ResolveView.jsonView(response, result);
 			} else if (requestURI.endsWith("/view")) {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				String result = sampleController.view(request);
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/viewAjax")) {

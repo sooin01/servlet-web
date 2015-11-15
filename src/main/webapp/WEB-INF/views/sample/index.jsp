@@ -26,18 +26,23 @@
 				success: function(data) {
 					console.log(data);
 					$("#result2").html(data);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					if (jqXHR.status == 401) {
+						$(location).attr("href", "http://127.0.0.1:8080/error/" + jqXHR.status + ".html");
+					}
 				}
 			});
 			return false;
 		});
-		
+
 		$("#form3").submit(function() {
 			$(this).ajaxSubmit({
-				url: "/sample/viewAjax",
-				type: "POST",
-				data: $("#form2").serialize(),
-				dataType: "html",
-				success: function(data) {
+				url : "/sample/viewAjax",
+				type : "POST",
+				data : $("#form2").serialize(),
+				dataType : "html",
+				success : function(data) {
 					console.log(data);
 					$("#result3").html(data);
 				}
