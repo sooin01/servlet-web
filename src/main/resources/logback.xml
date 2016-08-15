@@ -7,6 +7,8 @@
 		</encoder>
 	</appender>
 	
+	<logger name="Sample1" level="trace" />
+	
 	<logger name="com.my.app" level="debug" />
 	
 	<logger name="org.mybatis" level="info" />

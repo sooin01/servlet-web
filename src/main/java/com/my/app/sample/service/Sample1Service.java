@@ -25,6 +25,8 @@ public class Sample1Service {
 		
 		session.selectList("Sample1.selectList");
 		
+		selectList2();
+		
 		session.delete("delete", id);
 		
 		System.out.println(Thread.currentThread().getName() +  " >>>>>>>>>>>>>>>>>>>>>>>>>>>>> end");
