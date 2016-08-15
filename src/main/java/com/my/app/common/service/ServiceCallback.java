@@ -17,12 +17,12 @@ public class ServiceCallback implements MethodInterceptor {
 	public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
 		Object result = null;
 		
-		if (threadLocal.get() == null) {
-			//thread에 내 sql 정보를 담아.. 나만 쓸거야. 처음에 호출된 메소드 : method.getName()
-			threadLocal.set(new SqlSessionVo(method.getName(), CommonDao.getSqlSession()));
-		}
-		
 		try {
+			if (threadLocal.get() == null) {
+				//thread에 내 sql 정보를 담아.. 나만 쓸거야. 처음에 호출된 메소드 : method.getName()
+				threadLocal.set(new SqlSessionVo(method.getName(), CommonDao.getSqlSession()));
+			}
+			
 			result = proxy.invokeSuper(obj, args);
 			
 			CommonDao.commit(method.getName());
