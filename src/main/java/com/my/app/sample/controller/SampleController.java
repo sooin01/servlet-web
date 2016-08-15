@@ -12,7 +12,7 @@ import com.my.app.sample.service.SampleService;
 
 public class SampleController {
 	
-	private SampleService service = new ServiceProxy(SampleService.class).newInstance();
+	private SampleService service = ServiceProxy.getInstance(SampleService.class);
 	
 	public String index(HttpServletRequest request) {
 		request.getSession().setAttribute("user", LoginSessionListener.getInstance());

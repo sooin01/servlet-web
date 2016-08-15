@@ -4,18 +4,9 @@ import net.sf.cglib.proxy.Enhancer;
 
 public class ServiceProxy {
 	
-	private Class<?> clazz;
-	
-	public ServiceProxy(Class<?> clazz) {
-		this.clazz = clazz;
-	}
-	
 	@SuppressWarnings("unchecked")
-	public <T> T newInstance() {
-		Enhancer enhancer = new Enhancer();
-		enhancer.setSuperclass(clazz);
-		enhancer.setCallback(new ServiceCallback());
-		return (T) enhancer.create();
+	public static <T> T getInstance(Class<?> clazz) {
+		return (T) Enhancer.create(clazz, new ServiceCallback());
 	}
 	
 }

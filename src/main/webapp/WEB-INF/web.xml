@@ -14,6 +14,8 @@
 	<servlet-mapping>
 		<servlet-name>commonServlet</servlet-name>
 		<url-pattern>/sample/*</url-pattern>
+		<url-pattern>/sample1/*</url-pattern>
+		<url-pattern>/sample2/*</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>

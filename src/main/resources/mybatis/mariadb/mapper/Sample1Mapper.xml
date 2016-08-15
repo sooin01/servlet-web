@@ -1,0 +1,25 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Sample1">
+
+	<select id="selectList" resultType="hashmap">
+		select *
+		from t_user
+	</select>
+	
+	<select id="selectList2" resultType="hashmap">
+		select *
+		from t_address
+	</select>
+	
+	<insert id="insert" parameterType="string">
+		insert into t_address (id) values (#{value})
+	</insert>
+	
+	<insert id="delete" parameterType="string">
+		delete from t_address where id = #{value}
+	</insert>
+
+</mapper>
