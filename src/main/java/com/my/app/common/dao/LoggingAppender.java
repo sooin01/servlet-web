@@ -5,7 +5,7 @@ import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.spi.LoggingEvent;
 import org.apache.log4j.spi.ThrowableInformation;
 
-public class DBAppender extends AppenderSkeleton implements Appender {
+public class LoggingAppender extends AppenderSkeleton implements Appender {
 
 	@Override
 	public void close() {

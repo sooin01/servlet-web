@@ -8,7 +8,7 @@
 		</layout>
 	</appender>
 
-	<appender name="db" class="com.my.app.common.dao.DBAppender">
+	<appender name="db" class="com.my.app.common.dao.LoggingAppender">
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
 		</layout>
