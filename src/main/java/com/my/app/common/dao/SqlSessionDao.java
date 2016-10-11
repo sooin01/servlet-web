@@ -36,7 +36,7 @@ public class SqlSessionDao implements SqlSession {
 		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 			try {
 				SqlSession sqlSession = ServiceCallback.threadLocal.get().getSqlSession();
-				logger.debug("Sqlsession execute => {}", sqlSession);
+				logger.trace("Sqlsession execute => {}", sqlSession);
 				return method.invoke(sqlSession, args);
 			} catch (Throwable t) {
 				throw t;

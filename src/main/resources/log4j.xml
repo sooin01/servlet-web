@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="db" class="com.my.app.common.dao.DBAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+	
+	<logger name="com.my.app">
+		<level value="debug" />
+	</logger>
+	
+	<logger name="jdbc.connection">
+		<level value="off" />
+	</logger>
+	<logger name="jdbc.audit">
+		<level value="off" />
+	</logger>
+	<logger name="jdbc.sqlonly">
+		<level value="off" />
+	</logger>
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="info" />
+		<appender-ref ref="db" />
+	</logger>
+	<logger name="jdbc.resultset">
+		<level value="off" />
+	</logger>
+	<logger name="jdbc.resultsettable" additivity="false">
+		<level value="info" />
+		<appender-ref ref="db" />
+	</logger>
+
+	<root>
+		<level value="info" />
+		<appender-ref ref="console" />
+	</root>
+
+</log4j:configuration>

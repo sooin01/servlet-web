@@ -17,8 +17,6 @@ public class Sample1Service {
 	private Sample2Service sample2Service = ServiceProxy.getInstance(Sample2Service.class);
 	
 	public void insert(String id, FileVo vo) {
-		System.out.println(Thread.currentThread().getName() +  " >>>>>>>>>>>>>>>>>>>>>>>>>>>>> start");
-		
 		selectList2();
 		
 		session.insert("insert", id);
@@ -28,8 +26,6 @@ public class Sample1Service {
 		selectList2();
 		
 		session.delete("delete", id);
-		
-		System.out.println(Thread.currentThread().getName() +  " >>>>>>>>>>>>>>>>>>>>>>>>>>>>> end");
 	}
 	
 	public void selectList2() {
