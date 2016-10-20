@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.my.app.common.listener.LoginSessionListener;
 import com.my.app.common.service.ServiceProxy;
 import com.my.app.common.util.MultipartRequest;
+import com.my.app.common.vo.LoginVo;
 import com.my.app.sample.service.SampleService;
 
 public class SampleController {
@@ -15,9 +16,18 @@ public class SampleController {
 	private SampleService service = ServiceProxy.getInstance(SampleService.class);
 	
 	public String index(HttpServletRequest request) {
-		request.getSession().setAttribute("user", LoginSessionListener.getInstance());
-		request.getSession().removeAttribute("user");
-		service.getSampleList("test");
+		LoginVo loginVo = new LoginVo();
+		
+		if (LoginSessionListener.isDuplicate(loginVo.getUserId())) {
+			System.out.println("Duplicate login!");
+//			request.getSession().removeAttribute("user");
+			request.getSession().invalidate();
+		} else {
+			System.out.println("New login!");
+			request.getSession().setAttribute("user", loginVo);
+		}
+		
+//		service.getSampleList("test");
 		return "sample/index";
 	}
 	

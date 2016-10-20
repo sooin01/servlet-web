@@ -6,6 +6,10 @@
 	<listener>
 		<listener-class>com.my.app.common.listener.CommonServletContextListener</listener-class>
 	</listener>
+	
+	<listener>
+		<listener-class>com.my.app.common.listener.LoginSessionListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>commonServlet</servlet-name>

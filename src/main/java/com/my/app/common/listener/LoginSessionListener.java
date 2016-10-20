@@ -1,24 +1,42 @@
 package com.my.app.common.listener;
 
-import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LoginSessionListener implements HttpSessionBindingListener {
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
+
+import com.my.app.common.vo.LoginVo;
+
+public class LoginSessionListener implements HttpSessionListener {
 	
-	private static LoginSessionListener instance = new LoginSessionListener();
+	private static Map<String, LoginVo> loginMap = Collections.synchronizedMap(new HashMap<String, LoginVo>());
 	
-	public static LoginSessionListener getInstance() {
-		return instance;
+	public static LoginVo get(String userId) {
+		return loginMap.get(userId);
 	}
 	
-	@Override
-	public void valueBound(HttpSessionBindingEvent event) {
-		System.out.println("valueBound");
+	public static LoginVo put(String userId, LoginVo loginVo) {
+		return loginMap.put(userId, loginVo);
+	}
+	
+	public static LoginVo remove(String userId) {
+		return loginMap.remove(userId);
+	}
+	
+	public static synchronized boolean isDuplicate(String userId) {
+		return loginMap.containsKey(userId);
 	}
 
 	@Override
-	public void valueUnbound(HttpSessionBindingEvent event) {
-		System.out.println("valueUnbound");
+	public void sessionCreated(HttpSessionEvent se) {
+		System.out.println("Session created: " + se.getSession());
+	}
+
+	@Override
+	public void sessionDestroyed(HttpSessionEvent se) {
+		System.out.println("Session destroyed: " + se.getSession());
 	}
 
 }
