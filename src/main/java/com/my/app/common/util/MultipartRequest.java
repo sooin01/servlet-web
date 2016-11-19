@@ -38,7 +38,7 @@ public class MultipartRequest {
 		MultiMap parameterMap = new MultiValueMap();
 		
 		String pathname = "C:/dev/neon/workspace/servlet-web/src/main/webapp/upload";
-		DiskFileItemFactory factory = new DiskFileItemFactory(10 * 1024 * 1024, new File(pathname));
+		DiskFileItemFactory factory = new DiskFileItemFactory(10 * 1024, new File(pathname));
 		ServletFileUpload fileUpload = new ServletFileUpload(factory);
 		
 		try {
