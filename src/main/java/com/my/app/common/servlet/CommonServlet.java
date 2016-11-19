@@ -30,10 +30,8 @@ public class CommonServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getCharacterEncoding() == null) {
-			request.setCharacterEncoding("EUC-KR");
-		}
-		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("MS949");
+		response.setCharacterEncoding("MS949");
 		
 		String requestURI = request.getRequestURI();
 		
@@ -89,6 +87,8 @@ public class CommonServlet extends HttpServlet {
 				String result = uploadController.upload(request);
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/upload") && request.getMethod().equalsIgnoreCase("POST")) {
+				request.setCharacterEncoding("UTF-8");
+				response.setCharacterEncoding("UTF-8");
 				String result = uploadController.upload(request, new MultipartRequest(request));
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/download")) {

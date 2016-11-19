@@ -8,15 +8,9 @@
 
 	<div>
 		<form id="form1" action="/file/upload" method="post" enctype="multipart/form-data">
+			<input type="text" name="name" value="이름이다!">
 			<input type="file" name="file">
 			<input type="submit" value="업로드1">
-		</form>
-	</div>
-	
-	<div>
-		<form id="form2" action="/file/upload" method="post" enctype="multipart/form-data">
-			<input type="file" name="file">
-			<input type="submit" value="업로드2">
 		</form>
 	</div>
 	

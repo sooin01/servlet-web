@@ -1,6 +1,7 @@
 package com.my.app.common.util;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,7 +47,7 @@ public class MultipartRequest {
 			// name이 같은 경우 처리 보완해야 함. parameter, file value를 배열로...
 			for (FileItem fileItem : fileItemList) {
 				if (fileItem.isFormField()) {
-					parameterMap.put(fileItem.getFieldName(), fileItem.getString());
+					parameterMap.put(fileItem.getFieldName(), fileItem.getString(request.getCharacterEncoding()));
 				} else {
 					// 파일업로드
 					if (StringUtils.isNotBlank(fileItem.getName()) && fileItem.getSize() > 0) {
@@ -63,6 +64,8 @@ public class MultipartRequest {
 				}
 			}
 		} catch (FileUploadException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 	}
