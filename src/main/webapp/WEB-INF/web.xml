@@ -20,6 +20,7 @@
 		<url-pattern>/sample/*</url-pattern>
 		<url-pattern>/sample1/*</url-pattern>
 		<url-pattern>/sample2/*</url-pattern>
+		<url-pattern>/file/*</url-pattern>
 	</servlet-mapping>
 	
 	<jsp-config>

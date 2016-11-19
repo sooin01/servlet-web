@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.my.app.common.util.ExcelUtil;
 import com.my.app.common.util.MultipartRequest;
 import com.my.app.common.util.ResolveView;
+import com.my.app.file.controller.UploadController;
 import com.my.app.sample.controller.Sample1Controller;
 import com.my.app.sample.controller.Sample2Controller;
 import com.my.app.sample.controller.SampleController;
@@ -24,6 +25,7 @@ public class CommonServlet extends HttpServlet {
 	private static SampleController sampleController = new SampleController();
 	private static Sample1Controller sample1Controller = new Sample1Controller();
 	private static Sample2Controller sample2Controller = new Sample2Controller();
+	private static UploadController uploadController = new UploadController();
 	
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
@@ -80,6 +82,18 @@ public class CommonServlet extends HttpServlet {
 		
 		if (requestURI.startsWith("/sample2/")) {
 			sample2Controller.selectList3();
+		}
+		
+		if (requestURI.startsWith("/file/")) {
+			if (requestURI.endsWith("/upload") && request.getMethod().equalsIgnoreCase("GET")) {
+				String result = uploadController.upload(request);
+				ResolveView.jspView(request, response, result);
+			} else if (requestURI.endsWith("/upload") && request.getMethod().equalsIgnoreCase("POST")) {
+				String result = uploadController.upload(request, new MultipartRequest(request));
+				ResolveView.jspView(request, response, result);
+			} else if (requestURI.endsWith("/download")) {
+				uploadController.download(request, response);
+			}
 		}
 	}
 	

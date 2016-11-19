@@ -1,22 +1,17 @@
 package com.my.app.sample.service;
 
 import org.apache.ibatis.session.SqlSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.my.app.common.dao.SqlSessionDao;
 import com.my.app.common.service.ServiceProxy;
-import com.my.app.common.vo.FileVo;
 
 public class Sample1Service {
 	
-	private final static Logger logger = LoggerFactory.getLogger(Sample1Service.class);
-
 	private SqlSession session = new SqlSessionDao();
 	
 	private Sample2Service sample2Service = ServiceProxy.getInstance(Sample2Service.class);
 	
-	public void insert(String id, FileVo vo) {
+	public void insert(String id) {
 		selectList2();
 		
 		session.insert("insert", id);

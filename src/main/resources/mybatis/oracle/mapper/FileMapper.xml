@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="FileMapper">
+
+	<select id="getList" resultType="fileVo">
+		SELECT	ID
+			  , NAME
+			  , PATH
+		FROM	FILE_MANAGE
+		ORDER BY ID DESC
+	</select>
+	
+	<select id="get" parameterType="fileVo" resultType="fileVo">
+		SELECT	NAME
+			  <!-- , CONTENT -->
+			  , BYTES
+		FROM	FILE_MANAGE
+		WHERE	ID = #{id}
+	</select>
+
+	<insert id="insert" parameterType="fileVo">
+		INSERT INTO FILE_MANAGE (
+			ID, NAME, PATH, CONTENT, BYTES
+		) VALUES (
+			#{id}, #{name}, #{path}, #{content}, #{bytes}
+		)
+	</insert>
+
+</mapper>

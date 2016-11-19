@@ -32,7 +32,11 @@ public class ServiceCallback implements MethodInterceptor {
 			
 			// 처음에 호출된 메소드와 현재 메소드가 동일하면 commit
 			SqlSessionVo sqlSessionVo = ServiceCallback.threadLocal.get();
-			if (sqlSessionVo != null && method.getName().equals(sqlSessionVo.getMethodName())) {
+			if (sqlSessionVo != null
+					&& method.getName().equals(sqlSessionVo.getMethodName())
+					&& (method.getName().startsWith("insert")
+							|| method.getName().startsWith("update")
+							|| method.getName().startsWith("delete"))) {
 				logger.debug("{} commit!", sqlSessionVo.getSqlSession());
 				sqlSessionVo.getSqlSession().commit();
 			}

@@ -11,6 +11,7 @@
 	
 	<typeAliases>
 		<typeAlias alias="DBCP" type="com.my.app.common.dao.CommonDataSourceFactory" />
+		<typeAlias alias="fileVo" type="com.my.app.file.vo.FileVo" />
 	</typeAliases>
 	
 	<environments default="development">
@@ -18,13 +19,16 @@
 			<transactionManager type="JDBC" />
 			<dataSource type="DBCP">
 				<property name="initial_context" value="java:/comp/env" />
-				<property name="data_source" value="jdbc/test" />
+				<property name="data_source" value="jdbc/orcl" />
 			</dataSource>
 		</environment>
 	</environments>
 	
 	<mappers>
+		<!-- mariadb -->
 		<mapper resource="mybatis/mariadb/mapper/Sample1Mapper.xml" />
+		<!-- oracle -->
+		<mapper resource="mybatis/oracle/mapper/FileMapper.xml" />
 	</mappers>
 
 </configuration>

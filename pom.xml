@@ -150,6 +150,18 @@
 		    <artifactId>mariadb-java-client</artifactId>
 		    <version>1.1.9</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.oracle</groupId>
+		    <artifactId>ojdbc6</artifactId>
+		    <version>11.2.0.1.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.servlets</groupId>
+		    <artifactId>cos</artifactId>
+		    <version>26Dec2008</version>
+		</dependency>
 	</dependencies>
 
 	<build>

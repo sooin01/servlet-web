@@ -1,20 +1,23 @@
 package com.my.app.common.util;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 
-import com.my.app.common.vo.FileVo;
+import com.my.app.file.vo.FileVo;
 
 public class MultipartRequest {
 	
@@ -31,7 +34,10 @@ public class MultipartRequest {
 	}
 	
 	private void parse(HttpServletRequest request) {
-		DiskFileItemFactory factory = new DiskFileItemFactory(10 * 1024 * 1024, new File("D:/upload"));
+		MultiMap parameterMap = new MultiValueMap();
+		
+		String pathname = "C:/dev/neon/workspace/servlet-web/src/main/webapp/upload";
+		DiskFileItemFactory factory = new DiskFileItemFactory(10 * 1024 * 1024, new File(pathname));
 		ServletFileUpload fileUpload = new ServletFileUpload(factory);
 		
 		try {
@@ -40,19 +46,23 @@ public class MultipartRequest {
 			// name이 같은 경우 처리 보완해야 함. parameter, file value를 배열로...
 			for (FileItem fileItem : fileItemList) {
 				if (fileItem.isFormField()) {
-					parameterMap.put(fileItem.getFieldName(), CommonUtil.getParameter(fileItem.getInputStream()));
+					parameterMap.put(fileItem.getFieldName(), fileItem.getString());
 				} else {
 					// 파일업로드
 					if (StringUtils.isNotBlank(fileItem.getName()) && fileItem.getSize() > 0) {
-						// 파일업르도 정보를 Map에 저장
 						FileVo fileVo = new FileVo();
+						fileVo.setId(UUID.randomUUID().toString());
+						fileVo.setName(fileItem.getName());
+						fileVo.setPath(pathname + "/" + fileItem.getName());
+						fileVo.setContent(Base64.encodeBase64String(fileItem.get()));
+						fileVo.setBytes(fileItem.get());
+						
+						// 파일업르도 정보를 Map에 저장
 						fileMap.put(fileItem.getFieldName(), fileVo);
 					}
 				}
 			}
 		} catch (FileUploadException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

@@ -24,7 +24,7 @@ public class CommonDataSourceFactory implements DataSourceFactory {
 		Context initContext;
 		try {
 			initContext = new InitialContext();
-			DataSource realDataSource = (DataSource) initContext.lookup(prefix + "jdbc/test");
+			DataSource realDataSource = (DataSource) initContext.lookup(prefix + "jdbc/orcl");
 			
 			Log4JdbcCustomFormatter logFormatter = new Log4JdbcCustomFormatter();
 			logFormatter.setLoggingType(LoggingType.MULTI_LINE);
