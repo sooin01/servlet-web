@@ -15,28 +15,51 @@ public class UploadController {
 	
 	private UploadService uploadService = ServiceProxy.getInstance(UploadService.class);
 	
+	/**
+	 * 업로드 화면
+	 * 
+	 * @param request
+	 * @return
+	 */
 	public String upload(HttpServletRequest request) {
 		request.setAttribute("fileList", uploadService.getList());
 		return "file/upload";
 	}
 	
+	/**
+	 * 파일 업로드
+	 * 
+	 * @param request
+	 * @param multipartRequest
+	 * @return
+	 */
 	public String upload(HttpServletRequest request, MultipartRequest multipartRequest) {
 		FileVo fileVo = multipartRequest.getFile("file");
+		// DB CLOB, BLOB 둘 다 1건 저장(6~7초 걸림)
 		uploadService.insert(fileVo);
 		request.setAttribute("fileList", uploadService.getList());
 		return "file/upload";
 	}
 	
+	/**
+	 * 파일 다운로드
+	 * 
+	 * @param request
+	 * @param response
+	 */
 	public void download(HttpServletRequest request, HttpServletResponse response) {
 		ServletOutputStream sos = null;
 		
 		try {
 			FileVo fileVo = new FileVo();
 			fileVo.setId(request.getParameter("id"));
+			// 1건 조회(CLOB 8~9초, BLOB 3~4초)
 			fileVo = uploadService.get(fileVo);
 			
-//			byte[] b = Base64.decodeBase64(fileVo.getContent()); // CLOB
-			byte[] b = fileVo.getBytes(); // BLOB
+			// CLOB (Base64 인코딩/디코딩 때문에 느림)
+//			byte[] b = Base64.decodeBase64(fileVo.getContent());
+			// BLOB
+			byte[] b = fileVo.getBytes();
 			
 			response.setContentType("application/octet-stream");
 	        response.setContentLength(b.length);
