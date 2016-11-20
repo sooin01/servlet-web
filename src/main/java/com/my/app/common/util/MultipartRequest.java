@@ -10,8 +10,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.collections.MultiMap;
-import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -35,8 +33,6 @@ public class MultipartRequest {
 	}
 	
 	private void parse(HttpServletRequest request) {
-		MultiMap parameterMap = new MultiValueMap();
-		
 		String pathname = "C:/dev/neon/workspace/servlet-web/src/main/webapp/upload";
 		DiskFileItemFactory factory = new DiskFileItemFactory(10 * 1024, new File(pathname));
 		ServletFileUpload fileUpload = new ServletFileUpload(factory);
