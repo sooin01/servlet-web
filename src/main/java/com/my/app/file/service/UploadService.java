@@ -36,7 +36,6 @@ public class UploadService {
 			FileVo fileVo = new FileVo();
 			fileVo.setId(UUID.randomUUID().toString());
 			fileVo.setName(fileItem.getName());
-//			fileVo.setPath(null); // DB 저장되었기 때문에 제외
 			fileVo.setContent(Base64.encodeBase64String(fileItem.get()));
 			fileVo.setBytes(fileItem.get());
 			return session.insert("FileMapper.insert", fileVo);
