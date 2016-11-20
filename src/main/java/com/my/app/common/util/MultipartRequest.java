@@ -56,4 +56,12 @@ public class MultipartRequest {
 		return fileMap.get(name);
 	}
 	
+	public Map<String, String> getParameterMap() {
+		return parameterMap;
+	}
+	
+	public Map<String, FileItem> getFileMap() {
+		return fileMap;
+	}
+	
 }
