@@ -2,6 +2,7 @@ package com.my.app.file.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,18 +31,22 @@ public class UploadService {
 	
 	public int insertUpload(HttpServletRequest request) throws FileUploadException, IOException {
 		MultipartRequest multipartRequest = new MultipartRequest(request);
-		FileItem fileItem = multipartRequest.getFile("file");
+		int result = 0;
 		
-		if (StringUtils.isNotBlank(fileItem.getName()) && fileItem.getSize() > 0) {
-			FileVo fileVo = new FileVo();
-			fileVo.setId(UUID.randomUUID().toString());
-			fileVo.setName(fileItem.getName());
-			fileVo.setContent(Base64.encodeBase64String(fileItem.get()));
-			fileVo.setBytes(fileItem.get());
-			return session.insert("FileMapper.insert", fileVo);
+		for (Entry<String, FileItem> entry : multipartRequest.getFileMap().entrySet()) {
+			FileItem fileItem = entry.getValue();
+			
+			if (StringUtils.isNotBlank(fileItem.getName()) && fileItem.getSize() > 0) {
+				FileVo fileVo = new FileVo();
+				fileVo.setId(UUID.randomUUID().toString());
+				fileVo.setName(fileItem.getName());
+				fileVo.setContent(Base64.encodeBase64String(fileItem.get()));
+				fileVo.setBytes(fileItem.get());
+				result += session.insert("FileMapper.insert", fileVo);
+			}
 		}
 		
-		return 0;
+		return result;
 	}
 	
 }

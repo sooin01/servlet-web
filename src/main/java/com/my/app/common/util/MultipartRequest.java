@@ -34,7 +34,7 @@ public class MultipartRequest {
 		
 		List<FileItem> fileItemList = fileUpload.parseRequest(request);
 		
-		// name이 같은 경우 처리 보완해야 함. parameter, file value를 배열로...
+		// name이 같은 경우 처리 보완해야 함. parameter, file map을 MultiValueMap 사용
 		for (FileItem fileItem : fileItemList) {
 			if (fileItem.isFormField()) {
 				parameterMap.put(fileItem.getFieldName(), fileItem.getString(request.getCharacterEncoding()));
@@ -54,6 +54,14 @@ public class MultipartRequest {
 	
 	public FileItem getFile(String name) {
 		return fileMap.get(name);
+	}
+	
+	public Map<String, String> getParameterMap() {
+		return parameterMap;
+	}
+	
+	public Map<String, FileItem> getFileMap() {
+		return fileMap;
 	}
 	
 }
