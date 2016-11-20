@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileUploadException;
+
 import com.google.gson.Gson;
 import com.my.app.common.util.ExcelUtil;
 import com.my.app.common.util.MultipartRequest;
@@ -41,9 +43,13 @@ public class CommonServlet extends HttpServlet {
 				String result = sampleController.index(request);
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/fileupload")) {
-				MultipartRequest multipartRequest = new MultipartRequest(request);
-				Object result = sampleController.fileupload(multipartRequest);
-				ResolveView.jsonView(response, result);
+				try {
+					MultipartRequest multipartRequest = new MultipartRequest(request);
+					Object result = sampleController.fileupload(multipartRequest);
+					ResolveView.jsonView(response, result);
+				} catch (FileUploadException e) {
+					throw new ServletException(e);
+				}
 			} else if (requestURI.endsWith("/view")) {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				String result = sampleController.view(request);
@@ -56,7 +62,7 @@ public class CommonServlet extends HttpServlet {
 				try {
 					request.setAttribute("excel", ExcelUtil.readExcel());
 				} catch (Exception e) {
-					e.printStackTrace();
+					throw new ServletException(e);
 				}
 				
 				String result = requestURI.substring(requestURI.indexOf("/") + 1);
@@ -83,14 +89,19 @@ public class CommonServlet extends HttpServlet {
 		}
 		
 		if (requestURI.startsWith("/file/")) {
+			request.setCharacterEncoding("UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
 			if (requestURI.endsWith("/upload") && request.getMethod().equalsIgnoreCase("GET")) {
-				String result = uploadController.upload(request);
+				String result = uploadController.uploadView(request);
 				ResolveView.jspView(request, response, result);
 			} else if (requestURI.endsWith("/upload") && request.getMethod().equalsIgnoreCase("POST")) {
-				request.setCharacterEncoding("UTF-8");
-				response.setCharacterEncoding("UTF-8");
-				String result = uploadController.upload(request, new MultipartRequest(request));
-				ResolveView.jspView(request, response, result);
+				try {
+					String result = uploadController.upload(request);
+					ResolveView.jspView(request, response, result);
+				} catch (FileUploadException e) {
+					throw new ServletException(e);
+				}
 			} else if (requestURI.endsWith("/download")) {
 				uploadController.download(request, response);
 			}

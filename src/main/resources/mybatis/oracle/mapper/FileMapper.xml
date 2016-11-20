@@ -7,9 +7,9 @@
 	<select id="getList" resultType="fileVo">
 		SELECT	ID
 			  , NAME
-			  , PATH
+			  , TO_CHAR(CREATED_AT, 'YYYY-MM-DD HH24:MI:SS') AS CREATED_AT
 		FROM	FILE_MANAGE
-		ORDER BY ID DESC
+		ORDER BY CREATED_AT DESC
 	</select>
 	
 	<select id="get" parameterType="fileVo" resultType="fileVo">
@@ -22,9 +22,9 @@
 
 	<insert id="insert" parameterType="fileVo">
 		INSERT INTO FILE_MANAGE (
-			ID, NAME, PATH, CONTENT, BYTES
+			ID, NAME, CONTENT, BYTES, CREATED_AT
 		) VALUES (
-			#{id}, #{name}, #{path}, #{content}, #{bytes}
+			#{id}, #{name}, #{content}, #{bytes}, SYSDATE
 		)
 	</insert>
 

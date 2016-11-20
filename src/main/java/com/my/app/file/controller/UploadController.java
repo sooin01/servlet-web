@@ -1,13 +1,15 @@
 package com.my.app.file.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileUploadException;
+
 import com.my.app.common.service.ServiceProxy;
-import com.my.app.common.util.MultipartRequest;
 import com.my.app.file.service.UploadService;
 import com.my.app.file.vo.FileVo;
 
@@ -21,7 +23,7 @@ public class UploadController {
 	 * @param request
 	 * @return
 	 */
-	public String upload(HttpServletRequest request) {
+	public String uploadView(HttpServletRequest request) {
 		request.setAttribute("fileList", uploadService.getList());
 		return "file/upload";
 	}
@@ -30,13 +32,13 @@ public class UploadController {
 	 * 파일 업로드
 	 * 
 	 * @param request
-	 * @param multipartRequest
 	 * @return
+	 * @throws IOException 
+	 * @throws FileUploadException 
 	 */
-	public String upload(HttpServletRequest request, MultipartRequest multipartRequest) {
-		FileVo fileVo = multipartRequest.getFile("file");
+	public String upload(HttpServletRequest request) throws FileUploadException, IOException {
 		// DB CLOB, BLOB 둘 다 1건 저장(6~7초 걸림)
-		uploadService.insert(fileVo);
+		uploadService.insertUpload(request);
 		request.setAttribute("fileList", uploadService.getList());
 		return "file/upload";
 	}
@@ -63,7 +65,7 @@ public class UploadController {
 			
 			response.setContentType("application/octet-stream");
 	        response.setContentLength(b.length);
-	        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileVo.getName() + "\"");
+	        response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileVo.getName(), "UTF-8") + "\"");
 			response.getOutputStream().write(b);
 		} catch (IOException e) {
 			e.printStackTrace();

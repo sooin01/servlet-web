@@ -19,13 +19,13 @@
 			<tr>
 				<th>ID</th>
 				<th>NAME</th>
-				<th>PATH</th>
+				<th>CREATED_AT</th>
 			</tr>
 			<c:forEach var="item" items="${fileList}">
 				<tr>
 					<td>${item.id}</td>
 					<td><a href="/file/download?id=${item.id}">${item.name}</a></td>
-					<td>${item.path}</td>
+					<td>${item.createdAt}</td>
 				</tr>
 			</c:forEach>
 		</table>

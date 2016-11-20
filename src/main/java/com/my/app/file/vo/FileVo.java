@@ -6,11 +6,11 @@ public class FileVo {
 	
 	private String name;
 	
-	private String path;
-	
 	private String content;
 	
 	private byte[] bytes;
+	
+	private String createdAt;
 
 	public String getId() {
 		return id;
@@ -28,14 +28,6 @@ public class FileVo {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
-	}
-
 	public String getContent() {
 		return content;
 	}
@@ -50,6 +42,14 @@ public class FileVo {
 
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 }
